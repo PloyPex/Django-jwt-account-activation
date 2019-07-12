@@ -59,36 +59,6 @@ class User(AbstractBaseUser):
 	)
 	date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-	employer_perm = models.BooleanField(
-		_('employer'),
-		default=False,
-		help_text=_(
-			'Designates that the user is a employer'
-		)
-	)
-
-	candidate_perm = models.BooleanField(
-		_('Candidate'),
-		default=False,
-		help_text=_(
-			'Designates that the user is a Candidate'
-		)
-	)
-
-	employer_form = models.BooleanField(
-		_('employer form'),
-		default=False,
-		help_text='Designated that the user intended to become a '
-		'employer on sign up'
-	)
-
-	candidate_form = models.BooleanField(
-		_('candidate form'),
-		default=False,
-		help_text='Designated that the user intended to become a '
-		'candidate on sign up'
-	)
-
 	objects = UserManager()
 
 	EMAIL_FIELD = 'email'
@@ -133,20 +103,3 @@ class User(AbstractBaseUser):
 
 	def has_module_perms(self, app_label):
 		return True
-
-	@property
-	def is_employer(self):
-		return self.employer_perm
-
-	@property
-	def is_candidate(self):
-		return self.candidate_perm
-
-	@property
-	def register_form(self):
-		if self.employer_form:
-			return 'employer_form'
-		elif self.candidate_form:
-			return 'candidate_form'
-		else:
-			return 'not_choosen'
