@@ -5,5 +5,5 @@ from .views import AccountActivate
 app_name = 'accounts'
 
 urlpatterns = [
-	path('activate/<slug:key>/', AccountActivate.as_view(), name='activate'),
+	path('activate/<key>', AccountActivate.as_view(), name='activate'),
 ]
