@@ -13,12 +13,14 @@ User = get_user_model()
 class AccountActivate(View):
 	def get(self, request, key):
 		try:
-			decoded = jwt.decode(key, settings.SECRET_KEY, algorithms='HS256')
+			decoded = jwt.decode(key, settings.SECRET_KEY, algorithms='HS256',
+				issuer='PloyPex:Accounts', audience='PloyPex:Users')
 			uidb64 = decoded.get('uidb64')
 			token = decoded.get('token')
 			uid = urlsafe_base64_decode(uidb64).decode()
 			user = User.objects.get(pk=uid)
-		except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
+		except (TypeError, ValueError, OverflowError, User.DoesNotExist,
+			jwt.InvalidTokenError) as e:
 			print(e)
 			user = None
 
