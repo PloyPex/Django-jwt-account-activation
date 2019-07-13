@@ -2,4 +2,6 @@ Hi {{ user.username }}!
 
 Activate your account by clicking the link below,
 
-{% url 'accounts:activate' key %}
+{% autoescape off %}
+	{% url 'accounts:activate' key %}
+{% endautoescapse %}
