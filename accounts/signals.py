@@ -9,6 +9,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 
+from datetime import datetime, timedelta
+
 from .tokens import account_activation_token
 
 User = get_user_model()
@@ -19,7 +21,11 @@ def post_save_user(sender, instance, created, *args, **kwargs):
 		data = {
 			# 'uidb64': urlsafe_base64_encode(force_bytes(instance.pk)).decode(),
 			'uidb64': urlsafe_base64_encode(force_bytes(instance.pk)),
-			'token': account_activation_token.make_token(instance)
+			'token': account_activation_token.make_token(instance),
+			'exp': datetime.utcnow() + timedelta(days=2),
+			'iss': 'PloyPex:Accounts',
+			'aud': 'PloyPex:Users',
+			'iat': datetime.utcnow()
 		}
 		key = jwt.encode(data, settings.SECRET_KEY, algorithm='HS256').decode()
 		message = render_to_string('registration/emails/account_activation_email.html', {
