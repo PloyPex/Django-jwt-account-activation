@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext, gettext_lazy as _
 
-from .forms import UserAdminCreationForm, UserAdminChangeForm, RegisterForm
+from .forms import UserAdminCreationForm, UserAdminChangeForm
 from .models import User
 
 @admin.register(User)
