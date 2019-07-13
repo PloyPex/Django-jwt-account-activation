@@ -3,5 +3,5 @@ Hi {{ user.username }}!
 Activate your account by clicking the link below,
 
 {% autoescape off %}
-	{% url 'accounts:activate' key %}
+	<a href="https://127.0.0.1:8000/{% url 'accounts:activate' key %}">https://127.0.0.1:8000/{% url 'accounts:activate' key %}</a>
 {% endautoescapse %}
