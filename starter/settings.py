@@ -119,3 +119,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# email
+
+EMAIL_FILE_PATH = 'tmp/emails/'
+
+EMAIL_BACKEND = 'django.core.mail.filebased.EmailBackend'
