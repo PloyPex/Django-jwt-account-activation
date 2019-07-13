@@ -10,7 +10,6 @@ from django.core.mail import send_mail
 
 from django.conf import settings
 
-from .validators import temp_email_validator
 from .managers import UserManager
 
 class User(AbstractBaseUser):
@@ -31,7 +30,7 @@ class User(AbstractBaseUser):
 		_('email address'),
 		unique=True,
 		max_length=255,
-		validators=[validate_email, temp_email_validator],
+		validators=[validate_email],
 		error_messages={
 			'unique': _("A user with that email address already exists."),
 		},
@@ -43,7 +42,7 @@ class User(AbstractBaseUser):
 	)
 	is_active = models.BooleanField(
 		_('active'),
-		default=True,
+		default=False,
 		help_text=_(
 			'Designates whether this user should be treated as active. '
 			'Unselect this instead of deleting accounts.'
