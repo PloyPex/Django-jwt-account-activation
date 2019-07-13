@@ -101,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -127,4 +127,6 @@ STATIC_URL = '/static/'
 
 EMAIL_FILE_PATH = 'tmp/emails/'
 
-EMAIL_BACKEND = 'django.core.mail.filebased.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_USE_TLS = True
