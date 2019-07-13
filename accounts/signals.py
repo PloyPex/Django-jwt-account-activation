@@ -17,10 +17,9 @@ User = get_user_model()
 def post_save_user(sender, instance, created, *args, **kwargs):
 	if created:
 		data = {
-			'user': user,
-			# 'uidb64': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-			'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': account_activation_token.make_token(user)
+			# 'uidb64': urlsafe_base64_encode(force_bytes(instance.pk)).decode(),
+			'uidb64': urlsafe_base64_encode(force_bytes(instance.pk)),
+			'token': account_activation_token.make_token(instance)
 		}
 		key = jwt.encode(data, settings.SECRET_KEY, algorithm='HS256')
 		message = render_to_string('registration/emails/account_activation_email.html', {
@@ -35,5 +34,5 @@ def post_save_user(sender, instance, created, *args, **kwargs):
 			[instance.email],
 			reply_to=['support@ploypex.com']
 		)
-		msg.content_subtype = "html"  # Main content is now text/html
-		msg.send()
+		email.content_subtype = "html"  # Main content is now text/html
+		email.send()
