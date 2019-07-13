@@ -10,8 +10,7 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
 		login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
 		return (
 			six.text_type(user.pk) + six.text_type(timestamp) +
-			six.text_type(user.is_active) + six.text_type(user.employer_perm) +
-			six.text_type(user.candidate_perm) + six.text_type(user.password) +
+			six.text_type(user.is_active) + six.text_type(user.password) +
 			six.text_type(login_timestamp)
 		)
 
