@@ -1,10 +1,13 @@
 import jwt
 
 from django.dispatch import receiver
+from django.conf import settings
 from django.core.mail import EmailMessage
 from django.db.models.signals import pre_save, post_save
 from django.contrib.auth import get_user_model
+from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
 
 from .tokens import account_activation_token
 
