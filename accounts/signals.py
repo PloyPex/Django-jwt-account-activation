@@ -21,7 +21,7 @@ def post_save_user(sender, instance, created, *args, **kwargs):
 			'uidb64': urlsafe_base64_encode(force_bytes(instance.pk)),
 			'token': account_activation_token.make_token(instance)
 		}
-		key = jwt.encode(data, settings.SECRET_KEY, algorithm='HS256')
+		key = jwt.encode(data, settings.SECRET_KEY, algorithm='HS256').decode()
 		message = render_to_string('registration/emails/account_activation_email.html', {
 			'key': key
 		})
