@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import AccountActivateView
+from .views import AccountActivate
 
 app_name = 'accounts'
 
 urlpatterns = [
-	path('activate/<slug:key>/', AccountActivateView.as_view(), name='activate'),
+	path('activate/<slug:key>/', AccountActivate.as_view(), name='activate'),
 ]
