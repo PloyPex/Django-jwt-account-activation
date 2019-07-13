@@ -1,4 +1,7 @@
+import jwt
+
 from django.shortcuts import render
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_decode, is_safe_url
 from django.views import View
@@ -8,8 +11,11 @@ from .tokens import account_activation_token
 User = get_user_model()
 
 class AccountActivate(View):
-	def get(self, request, uidb64, token):
+	def get(self, request, key):
 		try:
+			decoded = jwt.decode(key, settings.SECRET_KEY, algorithms='HS256')
+			uidb64 = decoded.get('uidb64')
+			token = decoded.get('token')
 			uid = urlsafe_base64_decode(uidb64).decode()
 			user = User.objects.get(pk=uid)
 		except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
